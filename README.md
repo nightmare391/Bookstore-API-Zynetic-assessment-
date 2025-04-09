@@ -1,141 +1,88 @@
-# 📚 Bookstore API (NestJS + Prisma)
 
-A secure RESTful API for managing books with user authentication using JWT.
+📚 Bookstore API
 
----
+A RESTful API for a bookstore application built using NestJS, TypeScript, and Prisma ORM.  
 
-## 🚀 Setup Instructions
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/harshpdsingh/bookstore-api.git
-   cd bookstore-api
-   ```
+📌 Features
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+- 📖 CRUD operations for books
+- 👤 User authentication with JWT
+- 🔒 Secure password storage with bcrypt
+- 🛡️ Authorization for protected routes
+- 🧱 Prisma integration with PostgreSQL
+- 🧪 Ready for future testing & extension
 
-3. **Configure environment variables:**
+🛠️ Technologies Used
 
-   Create a `.env` file in the root directory and add the following:
-   ```env
-   DATABASE_URL="your_postgresql_connection_string"
-   JWT_SECRET="your_jwt_secret"
-   ```
+- NestJS
+- Prisma
+- PostgreSQL
+- JWT
+- bcrypt
 
-   Example (for local PostgreSQL):
-   ```env
-   DATABASE_URL="postgresql://postgres:password@localhost:5432/bookstore"
-   ```
+📂 Project Structure
 
-4. **Generate Prisma client and run migrations:**
-   ```bash
-   npx prisma generate
-   npx prisma migrate dev --name init
-   ```
+src/
+├── auth/            # Authentication logic (login/signup, JWT)
+├── books/           # Book module with CRUD APIs
+├── users/           # User management module
+├── prisma/          # Prisma database service
+└── main.ts          # App entry point
 
-5. **Start the development server:**
-   ```bash
-   npm run start:dev
-   ```
+⚙️ Getting Started
 
----
+1. Clone the repo
 
-## 📬 API Endpoints & Sample Requests
+    git clone https://github.com/yourusername/bookstore-api.git
+    cd bookstore-api
 
-### 🔐 Auth
+2. Install dependencies
 
-#### Signup
-`POST /auth/signup`
-```json
-{
-  "email": "user@example.com",
-  "password": "securepassword"
-}
-```
+    npm install
 
-#### Login
-`POST /auth/login`
-```json
-{
-  "email": "user@example.com",
-  "password": "securepassword"
-}
-```
+3. Set up your .env
 
-✅ Returns JWT token:
-```json
-{
-  "access_token": "your.jwt.token"
-}
-```
+Create a .env file in the root directory and add:
 
----
+    DATABASE_URL="postgresql://your_user:your_password@localhost:5432/bookstore"
+    JWT_SECRET="your_jwt_secret"
 
-### 📘 Books (Protected by JWT)
-> Add `Authorization: Bearer <access_token>` header to all book routes.
+4. Set up Prisma
 
-#### Create Book
-`POST /books`
-```json
-{
-  "title": "Atomic Habits",
-  "author": "James Clear",
-  "category": "Self-help",
-  "price": 499,
-  "rating": 5,
-  "publishedDate": "2021-01-01T00:00:00.000Z"
-}
-```
+    npx prisma init
+    npx prisma migrate dev --name init
+    npx prisma generate
 
-#### Get All Books
-`GET /books`
+5. Run the server
 
-Optional filters:
-`/books?author=James&category=Self-help&rating=5`
+    npm run start:dev
 
-#### Get Single Book
-`GET /books/:id`
+🔐 Authentication
 
-#### Update Book
-`PATCH /books/:id`
-```json
-{
-  "title": "Updated Book Title",
-  "price": 599
-}
-```
+- Signup: POST /auth/signup
+- Login: POST /auth/login
+- Use the returned JWT in the Authorization header as Bearer <token>
 
-#### Delete Book
-`DELETE /books/:id`
+📫 API Endpoints
 
----
+| Method | Endpoint       | Description       |
+|--------|----------------|-------------------|
+| GET    | /books         | Get all books     |
+| POST   | /books         | Create a new book |
+| GET    | /books/:id     | Get a book by ID  |
+| PATCH  | /books/:id     | Update a book     |
+| DELETE | /books/:id     | Delete a book     |
 
-## 🧠 Assumptions & Enhancements
+🔐 Routes are protected, requires JWT token.
 
-✅ User authentication is handled via JWT. All book routes require a valid token.
+👨‍💻 Developer
 
-✅ The `userId` is extracted securely from the JWT token instead of being passed manually.
+Divyam Singh  
+Roll No: 2205897  
+B.Tech CSE, Semester 6  
+Section: CSE-34
 
-✅ Book filtering supports partial matching (e.g., author name contains).
+📃 License
 
-✅ Prisma ORM is used for database interaction with PostgreSQL.
-
-⚠️ JWT secret and DB connection string should be managed via `.env` and not hardcoded.
-
-🚫 No frontend UI – this is a backend-only API (can be tested via Postman).
-
-🧪 Basic DTO validation is done using `class-validator`.
-
----
-
-## 🧪 Testing
-
-Use Postman or Thunder Client to test routes.
-
-✅ Don’t forget to include the JWT token in the Authorization header after login.
-
----
-
+This project is open-source and free to use for learning purposes.
